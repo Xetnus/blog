@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Locating Spokane - A Demonstration
+title: "Locating Spokane: A Demonstration"
 categories: [osm-finder, beta, tutorial]
 ---
 
