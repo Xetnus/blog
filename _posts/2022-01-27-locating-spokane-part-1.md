@@ -41,7 +41,7 @@ Some people will instantly recognize the sign towering above the restaurant as t
 
 **Linestring Properties.** Clicking on next allows us to enter the properties for the linestring. We'll select `Roadway` for the category. To select the subcategory, feel free to look through the dozens of potential values on the [highway Wiki page](https://wiki.openstreetmap.org/wiki/Key:highway). However, to save myself the time, I'm going to leave it at `Any`.
 
-The highway looks to be a bridge of some sort. If we go to the [bridge Wiki page](https://wiki.openstreetmap.org/wiki/Key:bridge), we'll see that there are several possible values that we could use, like cantilever, trestle, and viaduct. There's also a 'yes' option, which is a non-specific description for a bridge. To keep it simple, we're not going to provide a value for this key; we'll just input the tag `bridge`.
+The highway looks to be a bridge of some sort. If we go to the [bridge Wiki page](https://wiki.openstreetmap.org/wiki/Key:bridge), we'll see that there are several possible values that we could use, like cantilever, trestle, and viaduct. There's also a 'yes' option, which is a non-specific description for a bridge. To keep it simple, we're not going to provide a value for this key; we'll just use the tag `bridge`.
 
 ![](/blog/images/2022-01-27-dominos-linestring-properties.jpg)
 
@@ -59,7 +59,7 @@ Finally, hit next to generate the query. Once the query pops up, you can click o
 
 ![](/blog/images/2022-01-27-dominos-query.jpg)
 
-Pasting that query into your PostgreSQL interactive terminal should turn up 10 total results, which we'll need to sift through.
+Pasting that query into your PostgreSQL interactive terminal should turn up 10 total results within a few seconds, which we'll need to sift through.
 
 ![](/blog/images/2022-01-27-dominos-results.png)
 
