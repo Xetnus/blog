@@ -33,7 +33,7 @@ In the very top left of the original image, we see a building with a highway pas
 
 After clicking on next at the bottom of the page, you'll be asked to input the properties for the items you drew. Depending on the order you drew them, you'll either enter the properties for the node or linestring first. The exact order doesn't matter.
 
-**Node Properties.** The category of the node we drew should be `Building`. We can take a look at the values shown on the [building Wiki page](https://wiki.openstreetmap.org/wiki/Key:building) to determine the subcategory. Based on that page, there could be multiple subcategories that apply to this building, such as `yes`, `commercial`, and `retail`. To play it safe, we'll just keep it at the default selection of `Any`.
+**Node Properties.** The category of the node we drew should be `Building`. To determine the subcategory, we can take a look at the values shown on the [building Wiki page](https://wiki.openstreetmap.org/wiki/Key:building). Based on those values, it looks like there could be multiple subcategories that apply to this building, such as `yes`, `commercial`, and `retail`. To play it safe, we'll just keep it at the default selection of `Any`.
 
 Some people will instantly recognize the sign towering above the restaurant as the [Domino's](https://en.wikipedia.org/wiki/Domino%27s) logo. Others may need to zoom in to see it. Still others may need to look up a list of restaurant logos using their preferred search engine before they come to the same conclusion. Regardless of how you found it, there's an OpenStreetMap key to specify the [brand](https://wiki.openstreetmap.org/wiki/Key:brand) associated with a place. Given this, we'll input the tag `brand=Domino's`.
 
@@ -41,7 +41,7 @@ Some people will instantly recognize the sign towering above the restaurant as t
 
 **Linestring Properties.** Clicking on next allows us to enter the properties for the linestring. We'll select `Roadway` for the category. To select the subcategory, feel free to look through the dozens of potential values on the [highway Wiki page](https://wiki.openstreetmap.org/wiki/Key:highway). However, to save myself the time, I'm going to leave it at `Any`.
 
-The highway looks to be a bridge of some sort. If we go to the [bridge Wiki page](https://wiki.openstreetmap.org/wiki/Key:bridge), we'll see that there are several possible values that we could use, like cantilever, trestle, and viaduct. There's also a 'yes' option, which is a non-specific description for a bridge. To keep it simple, we're not going to provide a value; we'll just provide a tag using the key `bridge`.
+The highway looks to be a bridge of some sort. If we go to the [bridge Wiki page](https://wiki.openstreetmap.org/wiki/Key:bridge), we'll see that there are several possible values that we could use, like cantilever, trestle, and viaduct. There's also a 'yes' option, which is a non-specific description for a bridge. To keep it simple, we're not going to provide a value for this key; we'll just input the tag `bridge`.
 
 ![](/blog/images/2022-01-27-dominos-linestring-properties.jpg)
 
@@ -63,7 +63,7 @@ Pasting that query into your PostgreSQL interactive terminal should turn up 10 t
 
 ![](/blog/images/2022-01-27-dominos-results.png)
 
-Fortunately for us, we don't have to sift for long, because the very first node is what we're looking for: [www.openstreetmap.org/way/224606443](www.openstreetmap.org/way/224606443)
+Fortunately for us, we don't have to sift for long, because the very first node is what we're looking for: [www.openstreetmap.org/way/224606443](https://www.openstreetmap.org/way/224606443)
 
 Now that we know the location of the Domino's and highway depicted in the original image, it shouldn't take long to find exactly where the picture was taken. Taking in the totality of the image, we can determine that the picture was taken from the [Davenport Hotel Tower](https://goo.gl/maps/deQy3dGURyfpVjed8). Specifically, the picture was taken looking south, as shown below.
 
