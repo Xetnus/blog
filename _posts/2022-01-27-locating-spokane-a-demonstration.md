@@ -8,9 +8,9 @@ Sometimes you need to see a tool in action to understand how you can apply it to
 
 ![](/blog/images/2022-01-27-Spokane_WA_US.jpg)
 
-If you've opened [OSM Finder](https://osm-finder.netlify.app/) recently, you might recognize it as the site's new placeholder image. This image is full of information that would normally make it trivial to geolocate its origin using traditional techniques. Still, it's nearly a perfect image to demonstrate the capabilities of OSM Finder.
+If you've opened [OSM Finder](https://osm-finder.netlify.app/) recently, you might recognize it as the site's new placeholder image. This image is full of information that would normally make it trivial to geolocate using traditional techniques. Still, it's nearly a perfect image to demonstrate the capabilities of OSM Finder.
 
-There are several specific items of interest that we'll be covering in this article and future articles.
+There are several specific items of interest that we'll be covering in this and future articles.
 
 ![](/blog/images/2022-01-27-highlighted.jpg)
 
@@ -20,7 +20,17 @@ We'll cover items 1 through 3 in this introductory article. We'll hopefully go o
 
 ## The Geolocation Process
 
+If you followed the most recent version of the [installation instructions](https://github.com/Xetnus/osm-finder#installation) on the GitHub page exactly, you should already have the data for Washington state loaded in your database. Now, it's just a matter of creating a query that'll sufficiently narrow our search area down.
+
 ### 1. Domino's pizza
+
+![](/blog/images/2022-01-27-dominos-sign.jpg)
+
+Some people will instantly recognize the sign towering above the restaurant as the [Domino's](https://en.wikipedia.org/wiki/Domino%27s) logo. Others may need to zoom in to see it. Still others may need to look up a list of restaurant logos using their preferred search engine before they come to the same conclusion. Regardless, there's an OpenStreetMap key to specify the [brand](https://wiki.openstreetmap.org/wiki/Key:brand) associated with a place. Given this, we'll input the tag `brand=Domino's`.
+
+A highway can be seen passing directly by the restaurant. If we eyeball the distance between the highway and restaurant, a conservative estimate says that they come within 200 meters of each other. The highway also looks to be a bridge of some sort. If we go to the [Wiki page](https://wiki.openstreetmap.org/wiki/Key:bridge) for the bridge key, we'll see that there are several possible values that we could use, like cantilever, trestle, and viaduct. There's also a 'yes' option, which is a non-specific description for a bridge. To keep it simple, we're not going to provide a value; we'll just provide a tag using the key `bridge`.
+
+Those familiar with OpenStreetMap know that we're making quite a few daring assumptions here. At the most basic level, we're assuming that the highway and building have been added to OpenStreetMap. Occasionally you'll find that this isn't true when using OpenStreetMap data. On top of that, if in fact they have been added, we make the assumption that the OpenStreetMap author of the building tagged it with `brand=Domino's`. We also assume that the highway has been tagged as `bridge`. If any of these assumptions don't hold true when compared to the current state of the OpenStreetMap data, our search will fall flat and we'll be forced to widen our search using less restrictive parameters and tags.
 
 ### 2. Hotel
 
