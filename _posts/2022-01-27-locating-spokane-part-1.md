@@ -28,7 +28,7 @@ In the very top left of the original image, we see a building with a highway pas
 
 ![](/blog/images/2022-01-27-dominos-annotated.jpg)
 
-
+  
 #### Properties
 
 After clicking on next at the bottom of the page, you'll be asked to input the properties for the items you drew. Depending on the order you drew them, you'll either enter the properties for the node or linestring first. The exact order doesn't matter.
@@ -45,14 +45,14 @@ The highway looks to be a bridge of some sort. If we go to the [bridge Wiki page
 
 ![](/blog/images/2022-01-27-dominos-linestring-properties.jpg)
 
-
+  
 #### Relationships
 
 Moving to the next stage, we're asked to enter the details of the relationship between the node and line. If we eyeball the distance between the highway and restaurant, a conservative estimate suggests that they come within 200 meters of each other. This will be the maximum distance. We could also enter a minimum distance if we feel comfortable doing so, but I'll leave it blank. The angle parameters are disabled because this type of relationship doesn't have any angles supported by OSM Finder.
 
 ![](/blog/images/2022-01-27-dominos-relationship.jpg)
 
-
+  
 #### Query and Results
 
 Finally, hit next to generate the query. Once the query pops up, you can click on the copy icon at the top right to copy the query to the clipboard.
@@ -69,7 +69,7 @@ Now that we know the location of the Domino's and highway depicted in the origin
 
 ![](/blog/images/2022-01-27-dominos-geolocation.jpg)
 
-
+  
 ### Wrapping Up
 
 Those familiar with OpenStreetMap know that we made quite a few daring assumptions here. At the most basic level, we assumed that the highway and building had been added to OpenStreetMap. This isn't always the case when using OpenStreetMap data. On top of that, we made the assumption that the OpenStreetMap author of the building tagged it with `brand=Domino's`. We also assumed that the highway had been tagged as `bridge`. If any of these assumptions didn't hold true when compared to the current state of the OpenStreetMap data, our search would have fallen flat and we'd have been forced to widen our search using less restrictive parameters and tags. These are the inherent risks when using open-source data.
