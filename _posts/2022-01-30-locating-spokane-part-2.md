@@ -15,8 +15,6 @@ From the last article, we already know to start our search in Washington state. 
 
 ### 2. Hotel
 
-Let's take a closer look at the hotel.
-
 ![](/blog/images/2022-01-30-hotel.jpg)
 
 We can clearly see what looks to be a hotel next to a highway. In OSM Finder, the highway would be represented by a linestring and the hotel would be drawn as a node.
@@ -29,7 +27,7 @@ We have a few options for the tags field. We could try scouring the Internet to 
 
 ![](/blog/images/2022-01-30-hotel-properties.png)
 
-**Linestring Properties.** Next, we'll enter the properties for the highway. Just like in the last article, we'll use `Roadway` as the category and leave the subcategory at `Any`. We'll also tag the highway as `bridge` without a value.
+**Linestring Properties.** Next, we'll enter the properties for the highway. Since it's the same highway we used to find the Domino's in the last article, we'll use the same properties: `roadway` as the category and `any` as the subcategory. We'll also use the tag `bridge`.
 
 **Relationships.** Finally, we're asked to enter information for the relationship between the hotel and highway. Playing it safe, we'll enter a maximum distance of 200m. If we want, we can also enter a minimum distance of roughly 5m, but it's not required.
 
@@ -43,18 +41,51 @@ FROM linestrings AS line1, nodes AS node1
 WHERE line1.category = 'roadway' AND line1.tags ? 'bridge' AND node1.category = 'building' AND node1.subcategory = 'hotel' AND node1.tags->>'building:levels' = '4' AND ST_DWithin(line1.geom, node1.geom, 200) AND ST_Distance(line1.geom, node1.geom) > 5;
 ```
 
-Pasting that query into your PostgreSQL interactive terminal should turn up 4 total results. Luckily for us, they all refer to the same hotel: [Baymont Inn & Suites](https://www.openstreetmap.org/way/404682854)
+Pasting that query into your PostgreSQL interactive terminal should turn up 4 total results.
 
 ![](/blog/images/2022-01-30-hotel-results.png)
 
-**Technical aside.** Buildings and other closed polygons can be queried as nodes due to osm2pgsql's [centroid()](https://osm2pgsql.org/doc/manual.html#geometry-objects-in-lua) method. What this means for the investigator is that buildings are stored in the database as a single point. Specifically, the point that's stored is the object's center of mass. To visualize this, I've drawn a not-to-scale diagram of the hotel we just located.
+Luckily for us, they all refer to the same hotel: [Baymont Inn & Suites](https://www.openstreetmap.org/way/404682854).
+
+### Technical Aside
+Buildings and other closed polygons can be queried as nodes due to osm2pgsql's [centroid()](https://osm2pgsql.org/doc/manual.html#geometry-objects-in-lua) method. What this means for the investigator is that buildings are stored in the database as a single point. More accurately, the object's center of mass is stored. To visualize this, I've drawn a not-to-scale diagram of the hotel we just located.
 
 ![](/blog/images/2022-01-30-hotel-openstreetmap.jpg)
 
-Looking at this diagram, the minimum and maximum distances we entered are compared to the center of mass of the hotel, not the outside edges of the building as one might expect. For larger buildings, it's important to take this into consideration when you're deciding on the min and max values.
+Looking at this diagram, the minimum and maximum distances we entered are compared to the center of mass of the hotel, not the outside edges of the building as one might expect. For larger buildings, it's important to take this into consideration when you're determining the min and max properties.
 
 ### 3. Chimneys
 
+You probably have the hang of these basic techniques by now, but let's consider the situation where you only have two nodes. In this case, two chimneys.
+
+![](/blog/images/2022-01-30-chimney.jpg)
+
+It may not be obvious at first glace that there's a second chimney partially visible on the right side of the image, but it's there. It's easy enough to drop two nodes at the base of the chimneys in the image. While it's not strictly necessary that you drop them at the base, it's a good habit to draw nodes as near to the ground as possible. Doing so will save you some sanity once we get into more advanced techniques, like angle analysis.
+
+**Node Properties.** Since we only have two nodes, we don't have to worry about entering properties for linestrings. We'll enter the same properties for both nodes.
+
+Chimneys are a part of OpenStreetMap's [man_made](https://wiki.openstreetmap.org/wiki/Key:man_made) key, so we'll choose `man made` as the category. If you search through the list of values on that Wiki page, you'll come across the `chimney` value, which we'll use as our subcategory. Chimneys tend to have fewer tags in OpenStreetMap than some other categories and subcategories, so we'll skip the tags field. 
+
+**Relationships.** For the relationship between the two nodes, enter what you think is appropriate. I'd recommend a maximum distance of no smaller than 30m and a minimum distance of no greater than 10m.
+
+**Results.** Clicking on next should generate the following query.
+
+```
+SELECT
+  replace(replace(node1.osm_type, 'N', 'www.openstreetmap.org/node/'), 'W', 'www.openstreetmap.org/way/') || node1.osm_id AS node1_url, 
+  replace(replace(node2.osm_type, 'N', 'www.openstreetmap.org/node/'), 'W', 'www.openstreetmap.org/way/') || node2.osm_id AS node2_url
+FROM nodes AS node1, nodes AS node2
+WHERE node1.category = 'man_made' AND node1.subcategory = 'chimney' AND node2.category = 'man_made' AND node2.subcategory = 'chimney' AND node2.osm_id != node1.osm_id AND ST_DWithin(node1.geom, node2.geom, 30) AND ST_Distance(node1.geom, node2.geom) > 10;
+```
+
+Running that in the terminal, we get 18 results. 
+
+![](/blog/images/2022-01-30-chimney-results.png)
+
+This time, the last two rows are what we're looking for: [node1](https://www.openstreetmap.org/way/366611954) and [node2](https://www.openstreetmap.org/way/366611953).
+
 ## Wrapping Up
+
+In this article, we found hotel (#2) and chimneys (#3). We also covered how buildings and other closed polygons are converted into one center-of-mass point. Now that we've beat these basic operations into the ground, we'll be covering more advanced techniques in the next article. Specifically, we'll figure out how to use angle analysis to geolocate the railway (#6) and substation (#5). Once I've figured out how to efficiently implement shape comparison algorithms, I hope to write an article about finding the T-shaped roof (#4).
 
 If you have any feedback to share, please feel free to send me a note using the email link in the footer below.
