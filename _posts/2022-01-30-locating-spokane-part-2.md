@@ -17,17 +17,17 @@ From the last article, we already know to start our search in Washington state. 
 
 ![](/blog/images/2022-01-30-hotel.jpg)
 
-We can clearly see what looks to be a hotel next to a highway. In OSM Finder, the highway would be represented by a linestring and the hotel would be drawn as a node.
+We can clearly see what looks to be a hotel next to a highway. In OSM Finder, the highway is represented by a linestring and the hotel is drawn as a node.
 
 Once the linestring and node are drawn, click on the next button to move to the next stage. Depending on the order in which you drew the hotel and highway, you'll either enter the properties for the node or linestring first. The order doesn't matter.
 
-**Node Properties.** The category of the hotel should be `Building`. To determine the subcategory, we can take a look at the values shown on the [building Wiki page](https://wiki.openstreetmap.org/wiki/Key:building). Fortunately, there's a value named 'hotel' that we can use as our subcategory. Using 'hotel' as the subcategory could be risky, because there's no guarantee that it's been marked correctly in the OpenStreetMap data. However, we can always come back and remove the subcategory later if we hit a dead end in our search. Go ahead and select `hotel` as the subcategory, or type it out and hit enter.
+**Node Properties.** The category of the hotel should be `Building`. To determine the subcategory, we can take a look at the values shown on the [building Wiki page](https://wiki.openstreetmap.org/wiki/Key:building). Fortunately, there's a value named 'hotel' that we can use as our subcategory. Using 'hotel' as the subcategory could be risky, because there's no guarantee that it's been marked correctly in the OpenStreetMap data. However, we can always come back and remove the subcategory later if we hit a dead end in our search. Go ahead and select `hotel` as the subcategory, or type 'hotel' and hit enter.
 
-We have a few options for the tags field. We could try scouring the Internet to find out which hotel brand uses white and blue signs or orange and white paint. If we were successful in our search, we could try our luck at entering the `brand` tag again like we did with Domino's. Or, we could try something different, like using the [building:levels](https://wiki.openstreetmap.org/wiki/Key:building:levels) key to specify how many levels are in the hotel. There are four visible levels to this hotel, so let's use the `building:levels=4` tag.
+We have a few options for the tags field. We could try scouring the Internet to figure out which hotel brand uses white and blue signs or orange and white paint. If we were successful in our search, we could try our luck at entering the `brand` tag again like we did with Domino's. Or, we could try something different, like using the [building:levels](https://wiki.openstreetmap.org/wiki/Key:building:levels) key to specify how many levels are in the hotel. There are four visible levels to this hotel, so let's use the `building:levels=4` tag.
 
 ![](/blog/images/2022-01-30-hotel-properties.png)
 
-**Linestring Properties.** Next, we'll enter the properties for the highway. Since it's the same highway we used to find the Domino's in the last article, we'll use the same properties: `roadway` as the category and `any` as the subcategory. We'll also use the tag `bridge`.
+**Linestring Properties.** Next, we'll enter the properties for the highway. Since it's the same highway we saw in the last article, we'll use the same properties: `roadway` as the category and `any` as the subcategory. We'll also use the tag `bridge`.
 
 **Relationships.** Finally, we're asked to enter information for the relationship between the hotel and highway. Playing it safe, we'll enter a maximum distance of 200m. If we want, we can also enter a minimum distance of roughly 5m, but it's not required.
 
@@ -60,7 +60,9 @@ You probably have the hang of these basic techniques by now, but let's consider 
 
 ![](/blog/images/2022-01-30-chimney.jpg)
 
-It may not be obvious at first glace that there's a second chimney partially visible on the right side of the image, but it's there. It's easy enough to drop two nodes at the base of the chimneys in the image. While it's not strictly necessary that you drop them at the base, it's a good habit to draw nodes as near to the ground as possible. Doing so will save you some sanity once we get into more advanced techniques, like angle analysis.
+It may not be obvious at first glace that there's a second chimney partially visible on the right side of the image, but it's there.
+
+Go ahead and drop two nodes at the base of the chimneys in the image. While it's not strictly necessary that you drop them at the base, it's a good habit to draw nodes as near to the ground as possible. Doing so will save you some sanity once we get into more advanced techniques, like angle analysis.
 
 **Node Properties.** Since we only have two nodes, we don't have to worry about entering properties for linestrings. We'll enter the same properties for both nodes.
 
@@ -68,7 +70,7 @@ Chimneys are a part of OpenStreetMap's [man_made](https://wiki.openstreetmap.org
 
 **Relationships.** For the relationship between the two nodes, enter what you think is appropriate. I'd recommend a maximum distance of no smaller than 30m and a minimum distance of no greater than 10m.
 
-**Results.** Clicking on next should generate the following query.
+**Results.** Clicking next should generate the following query.
 
 ```
 SELECT
@@ -86,6 +88,6 @@ This time, the last two rows are what we're looking for: [node1](https://www.ope
 
 ## Wrapping Up
 
-In this article, we found hotel (#2) and chimneys (#3). We also covered how buildings and other closed polygons are converted into one center-of-mass point. Now that we've beat these basic operations into the ground, we'll be covering more advanced techniques in the next article. Specifically, we'll figure out how to use angle analysis to geolocate the railway (#6) and substation (#5). Once I've figured out how to efficiently implement shape comparison algorithms, I hope to write an article about finding the T-shaped roof (#4).
+In this article, we found the hotel (#2) and chimneys (#3). We also covered how buildings and other closed polygons are converted into one center-of-mass point. Now that we've beaten these basic operations into the ground, we'll be covering more advanced techniques in the next article. Specifically, we'll figure out how to use angle analysis to geolocate the substation (#5) and railway (#6). Once I've figured out how to efficiently implement shape comparison algorithms, I'll write an article about finding the T-shaped roof (#4).
 
 If you have any feedback to share, please feel free to send me a note using the email link in the footer below.
