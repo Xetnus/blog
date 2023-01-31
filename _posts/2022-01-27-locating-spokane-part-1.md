@@ -14,7 +14,7 @@ There are several specific items of interest that we'll be covering in this and 
 
 ![](/blog/images/2022-01-27-highlighted.jpg)
 
-We'll cover item 1 in this quick, introductory article. Items 2 and 3 will be covered in an article being released very soon. We'll hopefully go over item 4 at some point in the distant future, but searching for shapes is a difficult problem that [hasn't yet been implemented](https://xetnus.github.io/blog/introducing-osm-finder-beta/#future-work). Items 5 and 6 will be demonstrated in another article coming out within the next few days. Finally, item 7 is what kicks off this investigation. It's a billboard that, very conveniently, tells us which state to start our search in.
+We'll cover #1 in this quick, introductory article. Items #2 and #3 will be covered in [part 2](https://xetnus.github.io/blog/locating-spokane-part-2/). We'll hopefully go over #4 at some point in the distant future, but searching for shapes is a difficult problem that [hasn't yet been implemented](https://xetnus.github.io/blog/introducing-osm-finder-beta/#future-work). Items #5 and #6 will be demonstrated in another article coming out within the next few days. Finally, #7 is what kicks off this investigation. It's a billboard that, very conveniently, tells us which state to start our search in.
 
 ![](/blog/images/2022-01-27-billboard.jpg)
 
@@ -30,7 +30,7 @@ In the very top left of the original image, we see a building with a highway pas
 
 After clicking on next at the bottom of the page, you'll be asked to input the properties for the items you drew. Depending on the order you drew them, you'll either enter the properties for the node or linestring first. The exact order doesn't matter.
 
-**Node Properties.** The category of the node we drew should be `Building`. To determine the subcategory, we can take a look at the values shown on the [building Wiki page](https://wiki.openstreetmap.org/wiki/Key:building). Based on those values, it looks like there could be multiple subcategories that apply to this building, such as `yes`, `commercial`, and `retail`. To play it safe, we'll just keep it at the default selection of `Any`.
+**Node Properties.** The category of the node we drew should be `Building`. To determine the subcategory, we can take a look at the values shown on the [building Wiki page](https://wiki.openstreetmap.org/wiki/Key:building). Based on those values, it looks like there could be multiple subcategories that apply to this building, such as 'yes', 'commercial', and 'retail'. To play it safe, we'll just keep it at the default selection of `Any`.
 
 Some people will instantly recognize the sign towering above the restaurant as the [Domino's](https://en.wikipedia.org/wiki/Domino%27s) logo. Others may need to zoom in to see it. Still others may need to look up a list of restaurant logos using their preferred search engine before they come to the same conclusion. Regardless of how you found it, there's an OpenStreetMap key to specify the [brand](https://wiki.openstreetmap.org/wiki/Key:brand) associated with a place. Given this, we'll input the tag `brand=Domino's`.
 
@@ -46,9 +46,15 @@ The highway looks to be a bridge of some sort. If we go to the [bridge Wiki page
 
 ![](/blog/images/2022-01-27-dominos-relationship.jpg)
 
-**Results.** Finally, hit next to generate the query. Once the query pops up, you can click on the copy icon at the top right to copy the query to the clipboard.
+**Results.** Finally, hit next to generate the query. Once the query pops up, you can click on the copy icon at the top right of the popup to copy the query to the clipboard.
 
-![](/blog/images/2022-01-27-dominos-query.jpg)
+```
+SELECT
+  replace(replace(line1.osm_type, 'N', 'www.openstreetmap.org/node/'), 'W', 'www.openstreetmap.org/way/') || line1.osm_id AS line1_url, 
+  replace(replace(node1.osm_type, 'N', 'www.openstreetmap.org/node/'), 'W', 'www.openstreetmap.org/way/') || node1.osm_id AS node1_url
+FROM linestrings AS line1, nodes AS node1
+WHERE line1.category = 'roadway' AND line1.tags ? 'bridge' AND node1.category = 'building' AND node1.tags->>'brand' = 'Domino''s' AND ST_DWithin(line1.geom, node1.geom, 200);
+```
 
 Pasting that query into your PostgreSQL interactive terminal should turn up 10 total results within a few seconds, which we'll need to sift through.
 
@@ -60,11 +66,12 @@ Now that we know the location of the Domino's and highway depicted in the origin
 
 ![](/blog/images/2022-01-27-dominos-geolocation.jpg)
 
-  
 ## Wrapping Up
 
-Those familiar with OpenStreetMap know that we made quite a few daring assumptions here. At the most basic level, we assumed that the highway and building had been added to OpenStreetMap. This isn't always the case when using OpenStreetMap data. On top of that, we made the assumption that the OpenStreetMap author of the building tagged it with `brand=Domino's`. We also assumed that the highway had been tagged as `bridge`. If any of these assumptions didn't hold true when compared to the current state of the OpenStreetMap data, our search would have fallen flat and we'd have been forced to widen our search using less restrictive parameters and tags. These are the inherent risks when using open-source data.
+Those familiar with OpenStreetMap know that we made quite a few daring assumptions here. At the most basic level, we assumed that the highway and building had been added to OpenStreetMap. Unfortunately, this isn't always the case when using OpenStreetMap data. On top of that, we made the assumption that the OpenStreetMap author of the building tagged it with `brand=Domino's`. We also assumed that the highway had been tagged as `bridge`. If any of these assumptions didn't hold true when compared to the current state of the OpenStreetMap data, our search would have fallen flat and we'd have been forced to widen our search using less restrictive parameters and tags. These are the inherent risks when using open-source data.
 
 This article served as an introduction to using OSM Finder. In future articles, I'll cover more complex examples. Although I tried to make OSM Finder as intuitive as I could, I won't deny that the tool can be cumbersome to use. My goal for this blog is to make it easier for beginners to understand how to use the tool and to help everyone avoid common pitfalls while using the system.
 
 If you have any feedback to share, please feel free to send me a note using the email link in the footer below.
+
+If you're ready for part 2, it's out now: [Locating Spokane Part 2](https://xetnus.github.io/blog/locating-spokane-part-2/)
