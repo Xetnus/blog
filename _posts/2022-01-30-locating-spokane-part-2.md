@@ -3,15 +3,15 @@ layout: post
 title: "Locating Spokane Part 2"
 categories: [osm-finder, beta, tutorial]
 ---
-Let's take another quick look at Spokane before we move onto more advanced techniques.
+Now that we've found Domino's, let's take another look at basic entity relationships before we move onto more advanced geolocation techniques.
 
-Before continuining, I'm assuming you've read the [first article](https://xetnus.github.io/blog/locating-spokane-part-1/) in this series, where we located the Domino's pizza (#1) in the image below. Now, we'll cover the hotel (#2) and chimneys (#3) using similar techniques. 
+Before continuining, I'm assuming you've read the [first article](https://xetnus.github.io/blog/locating-spokane-part-1/) in this series, where we located Domino's pizza (#1) in the image below. In this article, we'll cover the hotel (#2) and chimneys (#3) using similar techniques. 
 
 ![](/blog/images/2022-01-27-highlighted.jpg)
 
 ## The Geolocation Process
 
-From the last article, we already know to start our search in Washington state. If you followed the most recent version of the [installation instructions](https://github.com/Xetnus/osm-finder#installation) on the GitHub page, you should have the data for Washington state loaded in your database.
+From the last article, we already know that our search starts in Washington state. If you followed the [installation instructions](https://github.com/Xetnus/osm-finder#installation) on the GitHub page, you should already have the data for Washington state loaded in your database.
 
 ### 2. Hotel
 
@@ -58,7 +58,7 @@ Looking at this diagram, the minimum and maximum distances we entered are compar
 
 You probably have the hang of these basic techniques by now, but let's consider the situation where you only have two nodes. In this case, two chimneys.
 
-![](/blog/images/2022-01-30-chimney.jpg)
+![](/blog/images/2022-01-30-chimney.png)
 
 It may not be obvious at first glace that there's a second chimney partially visible on the right side of the image, but it's there.
 
@@ -88,6 +88,6 @@ This time, the last two rows are what we're looking for: [node1](https://www.ope
 
 ## Wrapping Up
 
-In this article, we found the hotel (#2) and chimneys (#3). We also covered how buildings and other closed polygons are converted into one center-of-mass point. Now that we've beaten these basic operations into the ground, we'll be covering more advanced techniques in the next article. Specifically, we'll figure out how to use angle analysis to geolocate the substation (#5) and railway (#6). Once I've figured out how to efficiently implement shape comparison algorithms, I'll write an article about finding the T-shaped roof (#4).
+In this article, we found the hotel (#2) and the chimneys (#3). We also covered how buildings and other closed polygons are converted into one center-of-mass point. Now that we've beaten these basic operations into the ground, we'll be covering more advanced techniques in the next article. More specifically, we'll figure out how to use angle analysis to geolocate the substation (#5) and railway (#6). Eventually, once I've figured out how to implement shape comparison algorithms, I'll write an article about finding the T-shaped roof (#4).
 
 If you have any feedback to share, please feel free to send me a note using the email link in the footer below.
