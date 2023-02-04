@@ -1142,3 +1142,7 @@ Modules - reusable parts of our design
 //@import "highlights";
 @import "darcula";
 @import "svg-icons";
+
+pre {
+  max-height: 30em;
+}
