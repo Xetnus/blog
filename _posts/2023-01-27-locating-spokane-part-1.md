@@ -6,17 +6,17 @@ categories: [osm-finder, beta, tutorial]
 
 Sometimes you need to see a tool in action to understand how you can apply it to your own investigations. That's why I took a trip to Spokane, WA, USA to capture this photo.
 
-![](/blog/images/2022-01-27-Spokane_WA_US.jpg)
+![](/blog/images/2023-01-27-Spokane_WA_US.jpg)
 
 If you've opened [OSM Finder](https://osm-finder.netlify.app/) recently, you might recognize it as the site's new placeholder image. This image is full of information that would normally make it trivial to geolocate using traditional techniques. Still, it's nearly a perfect image to demonstrate the capabilities of OSM Finder.
 
 There are several specific items of interest that we'll be covering in this and future articles.
 
-![](/blog/images/2022-01-27-highlighted.jpg)
+![](/blog/images/2023-01-27-highlighted.jpg)
 
 We'll cover Domino's (#1) in this quick, introductory article. The hotel (#2) and chimneys (#3) have been covered in [Part 2](https://xetnus.github.io/blog/locating-spokane-part-2/). We'll hopefully go over the T-shaped roof (#4) at some point in the distant future, but searching for shapes is a difficult problem that [hasn't yet been implemented](https://xetnus.github.io/blog/introducing-osm-finder-beta/#future-work). The substation (#5) and railway (#6) will be demonstrated in another article coming out within the next few days. Finally, #7 is what kicks off this investigation. It's a billboard that, very conveniently, tells us which state to start our search in.
 
-![](/blog/images/2022-01-27-billboard.jpg)
+![](/blog/images/2023-01-27-billboard.jpg)
 
 ## The Geolocation Process
 
@@ -26,7 +26,7 @@ If you followed the most recent version of the [installation instructions](https
 
 In the very top left of the original image, we see a building with a highway passing directly next to it. Let's draw this relationship in OSM Finder. As of this beta release, buildings are all depicted using nodes in OSM Finder. Likewise, highways are all depicted as linestrings.
 
-![](/blog/images/2022-01-27-dominos-annotated.jpg)
+![](/blog/images/2023-01-27-dominos-annotated.jpg)
 
 After clicking on next at the bottom of the page, you'll be asked to input the properties for the items you drew. Depending on the order you drew them, you'll either enter the properties for the node or linestring first. The exact order doesn't matter.
 
@@ -34,17 +34,17 @@ After clicking on next at the bottom of the page, you'll be asked to input the p
 
 Some people will instantly recognize the sign towering above the restaurant as the [Domino's](https://en.wikipedia.org/wiki/Domino%27s) logo. Others may need to zoom in to see it. Still others may need to look up a list of restaurant logos using their preferred search engine before they come to the same conclusion. Regardless of how you found it, there's an OpenStreetMap key to specify the [brand](https://wiki.openstreetmap.org/wiki/Key:brand) associated with a place. Given this, we'll input the tag `brand=Domino's`.
 
-![](/blog/images/2022-01-27-dominos-node-properties.jpg)
+![](/blog/images/2023-01-27-dominos-node-properties.jpg)
 
 **Linestring Properties.** Clicking on next allows us to enter the properties for the linestring. We'll select `Roadway` for the category. To select the subcategory, feel free to look through the dozens of potential values on the [highway Wiki page](https://wiki.openstreetmap.org/wiki/Key:highway). However, to save myself the time, I'm going to leave it at `Any`.
 
 The highway looks to be a bridge of some sort. If we go to the [bridge Wiki page](https://wiki.openstreetmap.org/wiki/Key:bridge), we'll see that there are several possible values that we could use, like cantilever, trestle, and viaduct. There's also a 'yes' option, which is a non-specific description for a bridge. To keep it simple, we're not going to provide a value for this key; we'll just use the tag `bridge`.
 
-![](/blog/images/2022-01-27-dominos-linestring-properties.jpg)
+![](/blog/images/2023-01-27-dominos-linestring-properties.jpg)
 
 **Relationships.** Moving to the next stage, we're asked to enter the details of the relationship between the node and line. If we eyeball the distance between the highway and restaurant, a conservative estimate suggests that they come within 200 meters of each other. This will be the maximum distance. We could also enter a minimum distance if we feel comfortable doing so, but I'll leave it blank. The angle parameters are disabled because this type of relationship doesn't have any angles supported by OSM Finder.
 
-![](/blog/images/2022-01-27-dominos-relationship.jpg)
+![](/blog/images/2023-01-27-dominos-relationship.jpg)
 
 **Results.** Finally, hit next to generate the query. Once the query pops up, you can click on the copy icon at the top right of the popup to copy the query to the clipboard.
 
@@ -58,13 +58,13 @@ WHERE line1.category = 'roadway' AND line1.tags ? 'bridge' AND node1.category = 
 
 Pasting that query into your PostgreSQL interactive terminal should turn up 10 total results within a few seconds, which we'll need to sift through.
 
-![](/blog/images/2022-01-27-dominos-results.png)
+![](/blog/images/2023-01-27-dominos-results.png)
 
 Fortunately for us, we don't have to sift for long, because the very first node is what we're looking for: [www.openstreetmap.org/way/224606443](https://www.openstreetmap.org/way/224606443)
 
 Now that we know the location of the Domino's and highway depicted in the original image, it shouldn't take long to find exactly where the picture was taken. Taking in the totality of the image, we can determine that the picture was taken from the [Davenport Hotel Tower](https://goo.gl/maps/deQy3dGURyfpVjed8). Specifically, the picture was taken looking south, as shown below.
 
-![](/blog/images/2022-01-27-dominos-geolocation.jpg)
+![](/blog/images/2023-01-27-dominos-geolocation.jpg)
 
 ## Wrapping Up
 
