@@ -7,7 +7,7 @@ Now that we've found Domino's, let's take another look at basic entity relations
 
 Before continuining, I'm assuming you've read the [first article](https://xetnus.github.io/blog/locating-spokane-part-1/) in this series, where we located Domino's pizza (#1) in the image below. In this article, we'll cover the hotel (#2) and chimneys (#3) using similar techniques. 
 
-![](/blog/images/2022-01-27-highlighted.jpg)
+![](/blog/images/2023-01-27-highlighted.jpg)
 
 ## The Geolocation Process
 
@@ -15,7 +15,7 @@ From the last article, we already know that our search starts in Washington stat
 
 ### 2. Hotel
 
-![](/blog/images/2022-01-30-hotel.jpg)
+![](/blog/images/2023-01-30-hotel.jpg)
 
 We can clearly see what looks to be a hotel next to a highway. In OSM Finder, the highway is represented by a linestring and the hotel is drawn as a node.
 
@@ -25,7 +25,7 @@ Once the linestring and node are drawn, click on the next button to move to the 
 
 We have a few options for the tags field. We could try scouring the Internet to figure out which hotel brand uses white and blue signs or orange and white paint. If we were successful in our search, we could try our luck at entering the `brand` tag again like we did with Domino's. Or, we could try something different, like using the [building:levels](https://wiki.openstreetmap.org/wiki/Key:building:levels) key to specify how many levels are in the hotel. There are four visible levels to this hotel, so let's use the `building:levels=4` tag.
 
-![](/blog/images/2022-01-30-hotel-properties.png)
+![](/blog/images/2023-01-30-hotel-properties.png)
 
 **Linestring Properties.** Next, we'll enter the properties for the highway. Since it's the same highway we saw in the last article, we'll use the same properties: `roadway` as the category and `any` as the subcategory. We'll also use the tag `bridge`.
 
@@ -43,14 +43,14 @@ WHERE line1.category = 'roadway' AND line1.tags ? 'bridge' AND node1.category = 
 
 Pasting that query into your PostgreSQL interactive terminal should turn up 4 total results.
 
-![](/blog/images/2022-01-30-hotel-results.png)
+![](/blog/images/2023-01-30-hotel-results.png)
 
 Luckily for us, they all refer to the same hotel: [Baymont Inn & Suites](https://www.openstreetmap.org/way/404682854).
 
 ### Technical Aside
 Buildings and other closed polygons can be queried as nodes due to osm2pgsql's [centroid()](https://osm2pgsql.org/doc/manual.html#geometry-objects-in-lua) method. What this means for the investigator is that buildings are stored in the database as a single point. More accurately, the object's center of mass is stored. To visualize this, I've drawn a not-to-scale diagram of the hotel we just located.
 
-![](/blog/images/2022-01-30-hotel-openstreetmap.jpg)
+![](/blog/images/2023-01-30-hotel-openstreetmap.jpg)
 
 Looking at this diagram, the minimum and maximum distances we entered are compared to the center of mass of the hotel, not the outside edges of the building as one might expect. For larger buildings, it's important to take this into consideration when you're determining the min and max properties.
 
@@ -58,7 +58,7 @@ Looking at this diagram, the minimum and maximum distances we entered are compar
 
 You probably have the hang of these basic techniques by now, but let's consider the situation where you only have two nodes. In this case, two chimneys.
 
-![](/blog/images/2022-01-30-chimney.png)
+![](/blog/images/2023-01-30-chimney.png)
 
 It may not be obvious at first glace that there's a second chimney partially visible on the right side of the image, but it's there.
 
@@ -82,7 +82,7 @@ WHERE node1.category = 'man_made' AND node1.subcategory = 'chimney' AND node2.ca
 
 Running that in the terminal, we get 18 results. 
 
-![](/blog/images/2022-01-30-chimney-results.png)
+![](/blog/images/2023-01-30-chimney-results.png)
 
 This time, the last two rows are what we're looking for: [node1](https://www.openstreetmap.org/way/366611954) and [node2](https://www.openstreetmap.org/way/366611953).
 
