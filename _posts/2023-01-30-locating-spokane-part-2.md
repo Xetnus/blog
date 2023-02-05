@@ -91,3 +91,5 @@ This time, the last two rows are what we're looking for: [node1](https://www.ope
 In this article, we found the hotel (#2) and the chimneys (#3). We also covered how buildings and other closed polygons are converted into one center-of-mass point. Now that we've beaten these basic operations into the ground, we'll be covering more advanced techniques in the next article. More specifically, we'll figure out how to use angle analysis to geolocate the substation (#5) and railway (#6). Eventually, once I've figured out how to implement shape comparison algorithms, I'll write an article about finding the T-shaped roof (#4).
 
 If you have any feedback to share, please feel free to send me a note using the email link in the footer below.
+
+[Part 3](https://xetnus.github.io/blog/locating-spokane-part-3/) is out now!
