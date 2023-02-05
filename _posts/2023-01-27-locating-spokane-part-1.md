@@ -14,7 +14,7 @@ There are several specific items of interest that we'll be covering in this and 
 
 ![](/blog/images/2023-01-27-highlighted.jpg)
 
-We'll cover Domino's (#1) in this quick, introductory article. The hotel (#2) and chimneys (#3) have been covered in [Part 2](https://xetnus.github.io/blog/locating-spokane-part-2/). We'll hopefully go over the T-shaped roof (#4) at some point in the distant future, but searching for shapes is a difficult problem that [hasn't yet been implemented](https://xetnus.github.io/blog/introducing-osm-finder-beta/#future-work). The substation (#5) and railway (#6) will be demonstrated in another article coming out within the next few days. Finally, #7 is what kicks off this investigation. It's a billboard that, very conveniently, tells us which state to start our search in.
+We'll cover Domino's (#1) in this quick, introductory article. The hotel (#2) and chimneys (#3) have been covered in [Part 2](https://xetnus.github.io/blog/locating-spokane-part-2/). We'll hopefully go over the T-shaped roof (#4) at some point in the distant future, but searching for shapes is a difficult problem that [hasn't yet been implemented](https://xetnus.github.io/blog/introducing-osm-finder-beta/#future-work). The substation (#5) and railway (#6) were found in [Part 3](https://xetnus.github.io/blog/locating-spokane-part-3/). Finally, #7 is what kicks off this investigation. It's a billboard that, very conveniently, tells us which state to start our search in.
 
 ![](/blog/images/2023-01-27-billboard.jpg)
 
@@ -74,4 +74,4 @@ This article served as an introduction to using OSM Finder. In future articles, 
 
 If you have any feedback to share, please feel free to send me a note using the email link in the footer below.
 
-If you're ready for Part 2, it's out now: [Locating Spokane Part 2](https://xetnus.github.io/blog/locating-spokane-part-2/)
+[Part 2](https://xetnus.github.io/blog/locating-spokane-part-2/) and [Part 3](https://xetnus.github.io/blog/locating-spokane-part-3/) are out now!
